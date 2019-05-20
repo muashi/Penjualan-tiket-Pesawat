@@ -25,11 +25,9 @@ class P{
 }
 public class beta {
 
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String[] args) {
-        // TODO code application logic here
+        
         Scanner scan = new Scanner(System.in);
         P pswt = new P();
         
