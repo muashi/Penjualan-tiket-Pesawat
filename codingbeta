@@ -1,6 +1,9 @@
 package responsi2beta;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
+import java.util.Date;
 
 class P {
 
@@ -24,24 +27,51 @@ class P {
 
 }
 
+class Tanggal {
+
+    static String getTanggal;
+    Date date = new Date();
+
+    void getTanggal() {
+
+        SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yy");
+        System.out.println(ft.format(date));
+        System.out.println("");
+
+    }
+
+    void getWaktu() {
+        SimpleDateFormat ft = new SimpleDateFormat("hh:mm:ss a");
+        System.out.println(ft.format(date));
+        System.out.println("");
+    }
+}
+
 public class beta {
 
     public static void main(String[] args) {
 
+        Tanggal tgl = new Tanggal();
+
         Scanner scan = new Scanner(System.in);
         P pswt = new P();
 
-        System.out.print("Penjualan Tiket Pesawat");
+        System.out.print("    Penjualan Tiket Pesawat");
 
         System.out.println();
 
-        System.out.print("BANDARA CHALDEA");
-        System.out.println();
-        for (int i = 0; i < 23; i++) {
-            System.out.print("=");
+        System.out.print("\tBANDARA CHALDEA");
 
-        }
         System.out.println();
+        System.out.print("===============================");
+
+        System.out.println("");
+        System.out.print("Pemesanan pada Tanggal ");
+        tgl.getTanggal();
+        System.out.print("     Pada Waktu ");
+        tgl.getWaktu();
+
+        System.out.println("===============================");
 
         System.out.print("Masukan Nama Anda : ");
         String nama = scan.next();
@@ -58,16 +88,15 @@ public class beta {
             System.out.println(i + "." + tiket[var1][i] + "\t Rp." + tiket[var2][i]);
         }
         System.out.print("Masukan Pilihan : ");
-
         int kode = scan.nextInt();
-        
+
         System.out.print("Jumlah yang dibeli : ");
 
         int jmlBeli = scan.nextInt();
         pswt.jumlah = jmlBeli;
 
         System.out.println();
-        
+
         if (kode == 1 || kode == 2 || kode == 3 || kode == 4 || kode == 5) {
             int i = 0;
 
@@ -78,7 +107,7 @@ public class beta {
 
                     pswt.tujuan = tujuan;
                     pswt.harga = harga;
-                    
+
                 }
             }
 
