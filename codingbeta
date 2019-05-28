@@ -1,6 +1,5 @@
 package responsi2beta;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import java.util.Date;
@@ -8,21 +7,17 @@ import java.util.Date;
 class P {
 
     String tujuan;
-    int harga, jumlah, bayar, tagihan, pajak, kembali;
+    int harga, jumlah, bayar, total, pajak, kembali;
 
     void beliTiket() {
         pajak = harga * 10 / 100;
         if (jumlah > 3) {
             harga = harga * 2 / 100;
         }
-        tagihan = (harga * jumlah) + pajak;
-        System.out.println("Membeli Dengan Jumlah " + jumlah + "tiket pesawat dengan tujuan" + tujuan);
-        System.out.println("Tagihan anda adalah sebesar Rp. " + tagihan);
+        total = (harga * jumlah) + pajak;
+        System.out.println("Membeli Dengan Jumlah " + jumlah + " tiket pesawat dengan tujuan " + tujuan);
+        System.out.println("Tagihan anda adalah sebesar Rp. " + total);
         System.out.println("Sudah termasuk PAJAK 10%");
-    }
-
-    void kembalian() {
-        kembali = bayar - tagihan;
     }
 
 }
@@ -49,55 +44,94 @@ class Tanggal {
 
 public class beta {
 
+
     public static void main(String[] args) {
+        menu_awal();
+    }
+static String tiket[][] = {{"", "Manado", "Makasar", "Semarang", "Balikpapan", "Maluku"}, {"", "2000000", "3500000", "1000000", "2500000", "1500000"}};
+    static Scanner sc = new Scanner(System.in);
+   
+    static char ulang;
 
-        Tanggal tgl = new Tanggal();
+    public static void menu_awal() {
+        int pilih_menu;
+        ulang = 'S';
+        do {
+            System.out.println("========== BANDARA CHALDEA ==========");
+            System.out.println("1.\tList Penerbangan");
+            System.out.println("2.\tTransaksi");
+            System.out.println("=====================================");
+            System.out.print("Pilih : ");
 
-        Scanner scan = new Scanner(System.in);
+            pilih_menu = sc.nextInt();
+
+            System.out.println("");
+            switch (pilih_menu) {
+                case 1:
+                    list();
+                    break;
+
+                case 2:
+                    transaksi();
+                    break;
+
+                default:
+                    System.out.println("Inputan salah!");
+            }
+            System.out.print("ingin kembali ke menu awal ?(Y/T) ");
+            ulang = sc.next().charAt(0);
+        } while (ulang == 'Y' || ulang == 'y');
+    
+    }
+    public static void list(){
+        System.out.println("Daftar Tiket - Harga");
+        int var1 = 0;
+        int var2 = 1;
+
+        
+        for (int i = 1; i < tiket[var1].length; i++) {
+            System.out.println(i + "." + tiket[var1][i] + "\t Rp." + tiket[var2][i]);
+        }
+    System.out.println("====================================");
+}
+        public static void transaksi(){
+            
         P pswt = new P();
-
+        Tanggal tgl = new Tanggal();
+        Scanner scan = new Scanner(System.in);
+        
+        System.out.println("");
+        System.out.println("===============================");
         System.out.print("    Penjualan Tiket Pesawat");
-
         System.out.println();
-
         System.out.print("\tBANDARA CHALDEA");
-
         System.out.println();
         System.out.print("===============================");
-
-        System.out.println("");
+        System.out.println("");       
         System.out.print("Pemesanan pada Tanggal ");
         tgl.getTanggal();
         System.out.print("     Pada Waktu ");
         tgl.getWaktu();
-
         System.out.println("===============================");
 
         System.out.print("Masukan Nama Anda : ");
         String nama = scan.next();
-
         System.out.println();
-
-        String tiket[][] = {{"", "Menado", "Makasar", "Semarang", "Balikpapan", "Maluku"}, {"", "2000000", "3500000", "1000000", "2500000", "1500000"}};
 
         System.out.println("Daftar Tiket - Harga");
         int var1 = 0;
         int var2 = 1;
 
+        
         for (int i = 1; i < tiket[var1].length; i++) {
             System.out.println(i + "." + tiket[var1][i] + "\t Rp." + tiket[var2][i]);
         }
+
         System.out.print("Masukan Pilihan : ");
+
         int kode = scan.nextInt();
+        if (kode <= 5) {
 
-        System.out.print("Jumlah yang dibeli : ");
-
-        int jmlBeli = scan.nextInt();
-        pswt.jumlah = jmlBeli;
-
-        System.out.println();
-
-        if (kode == 1 || kode == 2 || kode == 3 || kode == 4 || kode == 5) {
             int i = 0;
 
             for (int j = 0; i < tiket[var1].length; i++) {
@@ -107,39 +141,45 @@ public class beta {
 
                     pswt.tujuan = tujuan;
                     pswt.harga = harga;
-
                 }
             }
 
             System.out.println();
         }
+
+        System.out.print("Jumlah yang dibeli : ");
+
+        int jmlBeli = scan.nextInt();
+        pswt.jumlah = jmlBeli;
+
+        System.out.println();
         pswt.beliTiket();
+        System.out.println("+=============================+");
         System.out.print("Jumlah Bayar : Rp.");
+        
+        do {
+            int bayar = scan.nextInt();
+            pswt.bayar = bayar;
+            if (bayar < pswt.total) {
+                System.out.println("Uang yang anda masukkan kurang");
+                System.out.println("Masukan uang kembali : Rp. ");
+            } else {
+            }
 
-        int bayar = scan.nextInt();
-        pswt.bayar = bayar;
+        } while (pswt.bayar < pswt.total);
+        System.out.println("");
+        System.out.println("+=============================+");
+        int kembali = pswt.bayar - pswt.total;
 
         System.out.println();
-        pswt.kembalian();
-        while (pswt.bayar < pswt.tagihan) {
-            System.out.println("Uang yang anda masukkan kurang");
-            System.out.println("Masukan uang kembali...");
-            int tambahan = scan.nextInt();
-            pswt.bayar = bayar + tambahan;
 
-            pswt.kembalian();
-
-        }
-        System.out.print("kembalian anda sebesar Rp. " + pswt.kembali);
+        System.out.print("Kembalian anda sebesar Rp. " + kembali);
         System.out.println();
         System.out.println();
 
-        System.out.println("TERIMA KASIH");
+        System.out.println("\tTRANSSAKSI SUKSES");
 
-        for (int i = 0; i < 12; i++) {
-            System.out.print("=");
-        }
+        System.out.println("===============================");
         System.out.println();
-
     }
 }
